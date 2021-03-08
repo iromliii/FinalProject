@@ -16,3 +16,5 @@ namespace Core.Utilities.Results
         }
     }
 }
+//AOF methodların başında sonunda hata verdıgınde çalışmasını ıstedıgıız kodların loglanması
+//Interceptıon bu olaya verılen ısımdır araya gırmek anlamındadır

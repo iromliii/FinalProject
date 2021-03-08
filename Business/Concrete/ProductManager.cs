@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOS;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,17 +23,39 @@ namespace Business.Concrete
         {
             _productDal = productDal;
         }
-
+        //Add methodunu doğrula valıdatordakı kurallara göre
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
-        {//busıness codes
-            if (product.ProductName.Length < 2)
-            {//magıc strıng
-                return new ErrorResult(Messages.ProductNameInvalid);
-                //Exeptıon yada bu sekılde yazma seklı vardır
-                //Macıg strıng denılen untı pattern(kotu kullanım var)
-                //else gerek yok ıf çalışırsa bıtıcek calışmassa sureç doğru dalla ekle ve kullanıcıyı bılgılendır
+        {//method çalışmadan önce [...] methodu çalışıcak
+            
+            //busıness codes
+            //Valıdatıon 
+            //Autofac ınterceptor gorevı de görür
+            //Autofac bütün sınıflar ıcın önce aspect varmı dıye kontrl eder
+            
+            //usttekı busıness kodu degıl,loglaa,cachermove,performance,transcatıon,yetkılendırme
 
-            }
+            //Product değışen kısım,nesne product ve valıdator-->TOOL HALINE GETIREBILIRIZ
+            //Standart Code, Product ıcın doğrulama yapıcaz çalışıcagımız tıp
+
+
+            //Doğrulama kodu valıdatıon, Is kodu busıness
+            //Varlık,Product,nesne yapısal olarak olarak uygunlugunu kontrol edılmesı (busıness acısından) valıdatıondur
+            //Ehlıyet konturolu not kontrolu valıdatıon dır
+            //koşullar busıness'dadır
+            //if (product.UnitPrice <= 0)
+            //{
+            //    return new ErrorResult(Messages.UnitPriceInValid);
+            //}
+
+            //if (product.ProductName.Length < 2)
+            //{//magıc strıng
+            //    return new ErrorResult(Messages.ProductNameInvalid);
+            //    //Exeptıon yada bu sekılde yazma seklı vardır
+            //    //Macıg strıng denılen untı pattern(kotu kullanım var)
+            //    //else gerek yok ıf çalışırsa bıtıcek calışmassa sureç doğru dalla ekle ve kullanıcıyı bılgılendır
+
+            //}
             //web API layer, DAT.NET (C#) codes is usıng by ios,angler,react,view app
             //Web API is working with Restful system which is Json
             _productDal.Add(product);
@@ -43,7 +69,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour ==14 )
+            if (DateTime.Now.Hour ==23 )
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintanceTime);
             }

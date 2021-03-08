@@ -32,19 +32,19 @@ namespace WebApplication2
         public void ConfigureServices(IServiceCollection services)
         {//Autofac,Nýnject,CastleWýndsor,StructureMap,LýghtInject,DryInJect-->Ioc Comtaýner
             services.AddControllers(); //býr bagýmlýlýk görürsen karþýlýðý budur
-            services.AddSingleton<IProductService,ProductManager>(); //arka planda referans oluþtur,tüm bellekte 1 tane referans 
-            services.AddSingleton<IProductDal,EfProductDal>();
+            //services.AddSingleton<IProductService,ProductManager>(); //arka planda referans oluþtur,tüm bellekte 1 tane referans 
+            //services.AddSingleton<IProductDal,EfProductDal>();
             //Aop,Mütün methodlarý loglamak ýstedýgýmýzde logger servýse yerýne [LogAspect], busýness ýcýnde busýness yazma ýslemýdýr!
             //örnegýn velýdate et (urunlerý doðrula) yada RemoveCache(Ürün üklendýgýnde
             //yada Transactýonal (hata olursa gerý al (eft/havale))
             //Performance (zaman aþýmý hatasýnda uyarma)
             //BUTUN BU DURUMLAR AOP DIR (AUTOFAC AOP IMKANINI GUZEL BIR SEKILDE SUNAR)
-
+            //ýnterfaceler referans tutucu,newlenemez
             //ýcýnde data tutmayan yapýlarda kullanýyoruz
             //Mesela Sepet tutuyosak sepetýde managerda tutuyosak hersey karýsýr (e-týcaret)
         } //newleme yapýsý constracter ýcýn
 
-
+        //AOF yapabýlmek ýcýn Autofac kullanarak ýnterface yapýyoruz busonessda eþleþtýrdýgýmýz kodlarý
 
         //AddTransýent
         //AddScorpe

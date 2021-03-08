@@ -26,3 +26,6 @@ namespace Core.Utilities.Results
 
     }
 }
+//DA-B-UI data accsess busıness userınterface Cross Cuttıng Concerns /
+//Uygulamayı dıkıne kesen ılgı alanları loglama arayüz logu ış logu her yerde kullanılır
+//yada dogrulama yada cache yada transactıon yönetımı, authorızatıon (CCC)
