@@ -4,7 +4,10 @@ using System;
 namespace Core.Interceptors
 {
     public abstract partial class MethodInterception : MethodInterceptionBaseAttribute
-    {
+    {//vırtual methon onu ezmenı bekleyen methodlar
+        //bır aspect yazdıgımızda(method ınterseptıonu temel alan ve hangısı çalışsın ıstıyosak onu ıceren operasyon)
+        //onu ezmemmızı beklıyor
+        //Invocatıon busıness method/Add methodu
         protected virtual void OnBefore(IInvocation invocation) { }
         protected virtual void OnAfter(IInvocation invocation) { }
         protected virtual void OnException(IInvocation invocation, System.Exception e) { }

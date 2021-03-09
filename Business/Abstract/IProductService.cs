@@ -21,5 +21,8 @@ namespace Business.Abstract
        IDataResult <Product> GetById(int productId);
        IResult Add(Product product); //mesajla sonucu Iresult ıcerıyor
        //voıd de data olmadıgı ıcın IResult oldu dıgerlerınde donen data oldugu ıcın IDataResult
+       IResult Update(Product product);
+
+
     }
 }

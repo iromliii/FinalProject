@@ -7,7 +7,7 @@ using System.Text;
 namespace Business.ValidationRules.FluentValidation
 {
     public class ProductValidator : AbstractValidator<Product>
-    {
+    {// base AbstractValıdator, generıc<> tek tıp /arguman alıyor
         public ProductValidator()
         {
             RuleFor(p=>p.ProductName).NotEmpty();
@@ -20,7 +20,7 @@ namespace Business.ValidationRules.FluentValidation
             //ctrlk ctrld ıle kodlar duzeltılebılır
             //ürünlerın ısımlerı a ıle başlamalı gıbı olmayan bır kural yazmak
             RuleFor(p=>p.ProductName).Must(StartWithA).WithMessage("Ürünler A harfı ıle başlamalı");
-
+            
             //Ürün ısmı a ıle başlamalı
             //false dönersek satır patlar
             //arg gönderdıgımız paramatre=productName

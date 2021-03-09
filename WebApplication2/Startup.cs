@@ -1,7 +1,10 @@
 using Business.Abstract;
 using Business.Concrete;
+using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntýtýyFramework;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +35,7 @@ namespace WebApplication2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {//Autofac,Nýnject,CastleWýndsor,StructureMap,LýghtInject,DryInJect-->Ioc Comtaýner
+            
             services.AddControllers(); //býr bagýmlýlýk görürsen karþýlýðý budur
             //services.AddSingleton<IProductService,ProductManager>(); //arka planda referans oluþtur,tüm bellekte 1 tane referans 
             //services.AddSingleton<IProductDal,EfProductDal>();
@@ -41,6 +46,27 @@ namespace WebApplication2
             //BUTUN BU DURUMLAR AOP DIR (AUTOFAC AOP IMKANINI GUZEL BIR SEKILDE SUNAR)
             //ýnterfaceler referans tutucu,newlenemez
             //ýcýnde data tutmayan yapýlarda kullanýyoruz
+            var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidIssuer = tokenOptions.Issuer,
+                        ValidAudience = tokenOptions.Audience,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+                    };
+                });
+
+
+
+
+
             //Mesela Sepet tutuyosak sepetýde managerda tutuyosak hersey karýsýr (e-týcaret)
         } //newleme yapýsý constracter ýcýn
 
@@ -60,6 +86,8 @@ namespace WebApplication2
             }
 
             app.UseHttpsRedirection();
+
+            
 
             app.UseRouting();
 
